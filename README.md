@@ -9,12 +9,12 @@ alluxio和hdfs有些类似、都是分布式的文件系统，hdfs基于磁盘�
 对alluixo进行比较全面的分析，将从以下几个方面着手。
 
 1. [Build And Deploy](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) 编译部署alluxio
-2. [How to use alluxio](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio的使用
-3. [RPC Thrift](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio RPC底层thrift介绍
-4. [Alluxio RPC](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio RPC源码分析
-5. [Alluxio Client](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio Client源码分析
-6. [Alluxio Master](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio Master源码分析
-7. [Alluxio Worker](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio Worker源码分析
-8. [Alluxio security](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio 认证授权源码分析
-9. [Alluxio bug and fix bug](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) 挖坑、填坑
-10. [Configure](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) 配置与源码分析
+2. [How to use alluxio](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio的使用 (未写)
+3. [RPC Thrift](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio RPC底层thrift介绍 (未写)
+4. [Alluxio RPC](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio RPC源码分析 (未写)
+5. [Alluxio Client](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio Client源码分析 (未写)
+6. [Alluxio Master](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio Master源码分析 (未写)
+7. [Alluxio Worker](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio Worker源码分析 (未写)
+8. [Alluxio security](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio 认证授权源码分析 (未写)
+9. [Alluxio bug and fix bug](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) 挖坑、填坑 (未写)
+10. [Configure](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) 配置与源码分析 (未写)
