@@ -9,7 +9,7 @@ alluxio和hdfs有些类似、都是分布式的文件系统，hdfs基于磁盘�
 对alluixo进行比较全面的分析，将从以下几个方面着手。
 
 1. [Build And Deploy](https://github.com/gjhkael/Alluxio-Internal/blob/master/markdown/1-Build-And-Deploy.md) 编译部署alluxio
-2. [How to use alluxio](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio的使用 (未写)
+2. [How to use alluxio](https://github.com/gjhkael/Alluxio-Internal/blob/master/markdown/2-HowToUseAlluxio.md) alluxio的使用
 3. [RPC Thrift](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio RPC底层thrift介绍 (未写)
 4. [Alluxio RPC](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio RPC源码分析 (未写)
 5. [Alluxio Client](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio Client源码分析 (未写)
