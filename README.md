@@ -16,5 +16,5 @@ alluxio和hdfs有些类似、都是分布式的文件系统，hdfs基于磁盘�
 6. [Alluxio Master](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio Master源码分析 (未写)
 7. [Alluxio Worker](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio Worker源码分析 (未写)
 8. [Alluxio security](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) alluxio 认证授权源码分析 (未写)
-9. [Alluxio bug and fix bug](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) 挖坑、填坑 (未写)
+9. [Alluxio bug and fix bug](https://github.com/gjhkael/Alluxio-Internal/blob/master/markdown/9-AllxuioBugAndFixBug.md) 挖坑、填坑 
 10. [Configure](https://github.com/gjhkael/Alluxio-Internal/blob/master/Build-And-Deploy.md) 配置与源码分析 (未写)
