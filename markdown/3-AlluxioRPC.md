@@ -123,7 +123,7 @@ ok,现在你可以启动server代码，然后再启动client代码，看看clien
 
 Thrift 包含一个完整的堆栈结构用于构建客户端和服务器端。下图描绘了 Thrift 的整体架构。
 
-![架构图](Graphs/thrift-architecture.png)
+![架构图](../Graphs/thrift-architecture.png)
 如图所示是thrift的协议栈整体的架构，thrift是一个客户端和服务器端的架构体系（c/s），在最上层是用户自行实现的业务逻辑代码。 第二层是由thrift编译器自动生成的代码，
 主要用于结构化数据的解析，发送和接收。TServer主要任务是高效的接受客户端请求，并将请求转发给Processor处理。Processor负责对客户端的请求做出响应，包括RPC请求转发，
 调用参数解析和用户逻辑调用，返回值写回等处理。从TProtocol以下部分是thirft的传输协议和底层I/O通信。TProtocol是用于数据类型解析的，将结构化数据转化为字节流给TTransport进行传输。
