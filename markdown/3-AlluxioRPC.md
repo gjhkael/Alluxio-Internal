@@ -266,7 +266,7 @@ public class SecureServer {
 	}
 }
 ```
-thrift 如何集成kerberos，请参考第十章节。
+thrift 如何集成kerberos，请参考第11章节。
 
 ##2.Alluxio rpc
 alluxio使用thrift作为其RPC通信框架，下面我们通过alluxio中的一个thrift文件来进行分析。如下：
