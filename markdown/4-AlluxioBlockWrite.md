@@ -397,7 +397,96 @@ public final class NettyRemoteBlockWriter implements RemoteBlockWriter {
               new DataByteArrayChannel(bytes, offset, length))).sync();
 ```
 
-未完，ing
+###worker BlockWriter
+如上所述，client通过Netty client向woker请求数据写，那么worker那边肯定会有相应的service handler来处理这个请求，找到BlockDataServerHandler类，在worker package中。
+
+```java 
+// alluxio.worker.netty.BlockDataServerHandler
+ void handleBlockWriteRequest(final ChannelHandlerContext ctx, final RPCBlockWriteRequest req)
+      throws IOException {
+    final long sessionId = req.getSessionId();
+    final long blockId = req.getBlockId();
+    final long offset = req.getOffset();
+    final long length = req.getLength();
+    final DataBuffer data = req.getPayloadDataBuffer();
+
+    BlockWriter writer = null;
+    try {
+      req.validate();
+      ByteBuffer buffer = data.getReadOnlyByteBuffer();
+
+      if (offset == 0) {
+        // This is the first write to the block, so create the temp block file. The file will only
+        // be created if the first write starts at offset 0. This allocates enough space for the
+        // write.
+        mWorker.createBlockRemote(sessionId, blockId, mStorageTierAssoc.getAlias(0), length);
+      } else {
+        // Allocate enough space in the existing temporary block for the write.
+        mWorker.requestSpace(sessionId, blockId, length);
+      }
+      writer = mWorker.getTempBlockWriterRemote(sessionId, blockId);
+      writer.append(buffer);
+
+      Metrics.BYTES_WRITTEN_REMOTE.inc(data.getLength());
+      RPCBlockWriteResponse resp =
+          new RPCBlockWriteResponse(sessionId, blockId, offset, length, RPCResponse.Status.SUCCESS);
+      ChannelFuture future = ctx.writeAndFlush(resp);
+      future.addListener(new ClosableResourceChannelListener(writer));
+    } catch (Exception e) {
+      LOG.error("Error writing remote block : {}", e.getMessage(), e);
+      RPCBlockWriteResponse resp =
+          RPCBlockWriteResponse.createErrorResponse(req, RPCResponse.Status.WRITE_ERROR);
+      ChannelFuture future = ctx.writeAndFlush(resp);
+      future.addListener(ChannelFutureListener.CLOSE);
+      if (writer != null) {
+        writer.close();
+      }
+    }
+  }
+```
+接下来，在DefaultBlockWrite中，调用 getTempBlockWriterRemote,返回BlockWriter
+```
+//alluxio.worker.block.DefaultBlockWorker
+public BlockWriter getTempBlockWriterRemote(long sessionId, long blockId)
+      throws BlockDoesNotExistException, IOException {
+    return mBlockStore.getBlockWriter(sessionId, blockId);
+}
+ 
+```
+mBlockStore是TieredBlockStore，为多级存储block存储管理器。返回LocalFileBlockWriter。
+```
+//alluxio.worker.block.TieredBlockStore
+  public BlockWriter getBlockWriter(long sessionId, long blockId)
+      throws BlockDoesNotExistException, IOException {
+    // NOTE: a temp block is supposed to only be visible by its own writer, unnecessary to acquire
+    // block lock here since no sharing
+    // TODO(bin): Handle the case where multiple writers compete for the same block.
+    try (LockResource r = new LockResource(mMetadataReadLock)) {
+      TempBlockMeta tempBlockMeta = mMetaManager.getTempBlockMeta(blockId);
+      return new LocalFileBlockWriter(tempBlockMeta.getPath());
+    }
+  }
+```
+
+localFileBlockWrite 调用write方法将数据存储起来。
+
+```
+//alluxio.worker.block.io.LocalFileBlockWriter
+  private long write(long offset, ByteBuffer inputBuf) throws IOException {
+    int inputBufLength = inputBuf.limit() - inputBuf.position();
+    MappedByteBuffer outputBuf =
+        mLocalFileChannel.map(FileChannel.MapMode.READ_WRITE, offset, inputBufLength);
+    outputBuf.put(inputBuf);
+    int bytesWritten = outputBuf.limit();
+    BufferUtils.cleanDirectBuffer(outputBuf);
+    return bytesWritten;
+  }
+
+```
+可以看到LocalFileBlockWriter将根据inputBuf的长度然后申请相应的资源，其中mLocalFileChannel.map方法调用的是jdk的FileChannelImpl的map方法，返回的是MappedByteBuffer，也即是DirectByteBuffer,
+DirectByteBuffer通过java的unsafe方法来直接申请系统内存，也就是堆外内存。
+
+
 
 
 
